@@ -4,16 +4,19 @@ require "maillift/version"
 
 Gem::Specification.new do |s|
   s.name									= "maillift"
-  s.version								= Maillift::VERSION
+  s.version								= MailLift::VERSION
   s.platform							= Gem::Platform::RUBY
   s.author								= "Kyle Wilkinson"
   s.email									= "kai@wikyd.org"
   s.homepage							= "https://github.com/wikyd"
-  s.summary								= "TODO: Add gem summary here."
-  s.description						= "TODO: Add gem description here."
+  s.summary								= "A simple library to talk to the MailLift API."
+  s.description						= "A simple library to talk to the MailLift API."
 	s.license								= "MIT"
 
 	s.required_ruby_version = "~> 2.0.0"
+
+  s.add_dependency('rest-client', '~> 1.6')
+
   s.add_development_dependency "rake"
   s.add_development_dependency "pry"
   s.add_development_dependency "pry-debugger"

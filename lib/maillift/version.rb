@@ -1,3 +1,3 @@
-module Maillift
+module MailLift
   VERSION = "0.1.0"
 end

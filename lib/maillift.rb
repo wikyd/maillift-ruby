@@ -1,6 +1,17 @@
-require "maillift/version"
+require 'rest-client'
+require 'json'
+require 'date'
+require 'time'
 
-# Namespace
-module Maillift
-  # TODO - Add code here.
+require "maillift/version"
+require "maillift/util"
+
+require "maillift/client"
+require "maillift/letter"
+require "maillift/letter_status"
+require "maillift/api/letter_api"
+require "maillift/api/letter_status_api"
+
+module MailLift
+
 end
