@@ -20,7 +20,7 @@ module MailLift::API
       letter = MailLift::Letter.new(attributes)
       yield letter if block_given?
       # Should probably be POST, actually
-      result = handle_response(@resource.put(letter.to_api_params))
+      result = handle_response(@resource.post(letter.to_api_params))
       MailLift::Letter.parse(result)
     end
 
@@ -30,7 +30,7 @@ module MailLift::API
     end
 
     def modify(uuid, attributes_to_modify)
-      result = handle_response(@resource[uuid].post attributes_to_modify)
+      result = handle_response(@resource[uuid].put attributes_to_modify)
       MailLift::Letter.parse(result)
     end
 
