@@ -5,9 +5,14 @@ module MailLift::API
       @resource = parent_resource['letter']
     end
 
+    # Can take a raw create_date filter string like: >=yyyy-mm-dd
+    # Can also take optional start_date, end_date options and munge them
+    # into the correct format.
     def list(options = {})
       # clean up options
-      items = handle_response(@resource.get)
+      options = MailLift::Util.convert_to_maillift(convert_list_options(options))
+      response = @resource["?#{RestClient::Payload.generate(options)}"].get
+      items = handle_response(response)
       items.map { |i| MailLift::Letter.parse(i) }
     end
 
@@ -37,6 +42,23 @@ module MailLift::API
     def handle_response(response)
       # TODO test for error / success
       JSON.parse(response.body)
+    end
+
+    def convert_list_options(options)
+      start_date, end_date = options.delete(:start_date), options.delete(:end_date)
+      return options unless start_date || end_date
+
+      if start_date == end_date
+        options[:creation_date] = "=#{start_date.to_s}"
+      elsif start_date && end_date
+        options[:creation_date] = "<=#{end_date.to_s},>=#{start_date.to_s}"
+      elsif end_date
+        options[:creation_date] = "<=#{end_date.to_s}"
+      else
+        options[:creation_date] = ">=#{start_date.to_s}"
+      end
+
+      options
     end
 
   end
