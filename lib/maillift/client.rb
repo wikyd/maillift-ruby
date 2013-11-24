@@ -7,11 +7,11 @@ module MailLift
     end
 
     def letter
-      @letter ||= API::LetterAPI.new(rest_client)
+      @letter ||= API::LetterAPI.new(rest_client, rest_client)
     end
 
     def letter_status
-      @letter_status ||= API::LetterStatusAPI.new(rest_client)
+      @letter_status ||= API::LetterStatusAPI.new(rest_client, rest_client)
     end
 
     private

@@ -1,8 +1,9 @@
 module MailLift::API
   class LetterAPI
 
-    def initialize(parent_resource)
+    def initialize(parent_resource, base_resource = nil)
       @resource = parent_resource['letter']
+      @base_resource = base_resource
     end
 
     # Can take a raw create_date filter string like: >=yyyy-mm-dd
@@ -13,7 +14,7 @@ module MailLift::API
       options = MailLift::Util.convert_to_maillift(convert_list_options(options))
       response = @resource["?#{RestClient::Payload.generate(options)}"].get
       items = handle_response(response)
-      items.map { |i| MailLift::Letter.parse(i) }
+      items.map { |i| MailLift::Letter.parse(i, @base_resource) }
     end
 
     def send(attributes = {}, &block)
@@ -21,17 +22,17 @@ module MailLift::API
       yield letter if block_given?
       # Should probably be POST, actually
       result = handle_response(@resource.post(letter.to_api_params))
-      MailLift::Letter.parse(result)
+      MailLift::Letter.parse(result, @base_resource)
     end
 
     def find(uuid)
       result = handle_response(@resource[uuid].get)
-      MailLift::Letter.parse(result)
+      MailLift::Letter.parse(result, @base_resource)
     end
 
     def modify(uuid, attributes_to_modify)
       result = handle_response(@resource[uuid].put attributes_to_modify)
-      MailLift::Letter.parse(result)
+      MailLift::Letter.parse(result, @base_resource)
     end
 
     def delete(uuid)

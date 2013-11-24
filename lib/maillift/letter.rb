@@ -2,20 +2,23 @@ module MailLift
   class Letter < Resource
     MODIFIABLE_PARAMS = [:message_body, :scheduled_delivery, :approval_required]
 
-    #def delete
-      #Letter.delete(self.uuid)
-    #end
+    def delete
+      API::LetterAPI.new(base_resource, base_resource).delete(self.uuid)
+    end
 
-    #def modify(attributes_to_change)
+    def modify
+      api = API::LetterAPI.new(base_resource, base_resource)
+      updated_model = api.modify(self.uuid, self.to_modifiable_params)
+      self.merge(updated_model)
+    end
 
-    #end
-
-    #def letter_statuses
-      #LetterStatus.list(uuid)
-    #end
+    def letter_statuses
+      API::LetterStatusAPI.new(base_resource, base_resource).list(self.uuid)
+    end
 
     def to_modifiable_params
-      Util.convert_to_maillift(self.to_h.slice(MODIFIABLE_PARAMS))
+      params = self.to_h.select { |key, value| MODIFIABLE_PARAMS.include?(key) }
+      Util.convert_to_maillift(params)
     end
 
   end
