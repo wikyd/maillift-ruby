@@ -1,8 +1,10 @@
 # Overview
 
 [![Gem Version](https://badge.fury.io/rb/maillift.png)](http://badge.fury.io/rb/maillift)
-[![Code Climate GPA](https://codeclimate.com/github/wikyd/maillift.png)](https://codeclimate.com/github/wikyd/maillift)
-[![Travis CI Status](https://secure.travis-ci.org/wikyd/maillift.png)](http://travis-ci.org/wikyd/maillift)
+[![Code Climate
+GPA](https://codeclimate.com/github/wikyd/maillift-ruby.png)](https://codeclimate.com/github/wikyd/maillift-ruby)
+[![Travis CI
+Status](https://secure.travis-ci.org/wikyd/maillift-ruby.png)](http://travis-ci.org/wikyd/maillift-ruby)
 
 # Features
 
